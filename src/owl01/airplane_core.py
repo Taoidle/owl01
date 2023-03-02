@@ -34,7 +34,7 @@ def make_AirplaneFlyStatus(
     pass
 
 
-@dataclasses.dataclass()
+# @dataclasses.dataclass()
 class AirplaneCore(object):
     """
     每个飞机的基本信息

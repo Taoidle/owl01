@@ -1,10 +1,7 @@
 from .airplane_core import AirplaneCore
 from enum import Enum
 
-from .airplane_manager import AirplaneManager
-
-
-# from ..js import sendCmd
+from .relay import Relay
 
 
 class AirplaneModeEnum(Enum):
@@ -15,13 +12,20 @@ class AirplaneModeEnum(Enum):
     MapMode = 4
 
 
-class AirplaneController(AirplaneCore, AirplaneManager):
+class AirplaneController(AirplaneCore):
     """
     无人机控制
     此类包含控制单个无人机的所有指令
     """
     count: int = 1
 
+    __relay = None
+
+    def __init__(self, id: str, relay: Relay):
+        # super(AirplaneCore, self).__init__()
+        # super(Relay, self).__init__()
+        self.keyName = id
+        self.__relay = relay
 
     def _next_count(self):
         self.count = self.count + 2
@@ -32,14 +36,13 @@ class AirplaneController(AirplaneCore, AirplaneManager):
 
     def _send_cmd(self, command: str) -> str:
         self.count = self.count + 1
-        return self.__send_cmd(self._prepare_command(command))
+        return self.__relay.send_cmd(self._prepare_command(command))
 
     def ping(self):
         return None
 
     def start(self):
         return None
-
 
     def mode(self, mode: AirplaneModeEnum):
         """
@@ -242,25 +245,24 @@ class AirplaneController(AirplaneCore, AirplaneManager):
 
     pass
 
-
-class AirplaneControllerExtended(AirplaneController):
-    """
-    无人机扩展控制类
-    此类为预留给各个实机接口库的适配类，
-    所有为特定实机而实现的接口库都应该将其所特有的功能实现在此扩展类中
-    """
-
-    def __getattr__(self, item):
-        """
-        此函数为方法拦截器，
-        用来拦截对此对象的不存在的函数的获取和调用，
-        为了对其他库实现的适配而存在
-        from https://stackoverflow.com/questions/14612442/how-to-handle-return-both-properties-and-functions-missing-in-a-python-class-u
-        """
-        def func(*arg, **kwargs):
-            print("AirplaneControllerExtended __getattr__ placement")
-            return None
-
-        return func
-
-    pass
+# class AirplaneControllerExtended(AirplaneController):
+#     """
+#     无人机扩展控制类
+#     此类为预留给各个实机接口库的适配类，
+#     所有为特定实机而实现的接口库都应该将其所特有的功能实现在此扩展类中
+#     """
+#
+#     def __getattr__(self, item):
+#         """
+#         此函数为方法拦截器，
+#         用来拦截对此对象的不存在的函数的获取和调用，
+#         为了对其他库实现的适配而存在
+#         from https://stackoverflow.com/questions/14612442/how-to-handle-return-both-properties-and-functions-missing-in-a-python-class-u
+#         """
+#         def func(*arg, **kwargs):
+#             print("AirplaneControllerExtended __getattr__ placement")
+#             return None
+#
+#         return func
+#
+#     pass
