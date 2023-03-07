@@ -243,6 +243,13 @@ class AirplaneController(AirplaneCore):
         """
         return self._send_cmd(f"hover")
 
+    def take_photo(self, c: int):
+        if c == 1:
+            return self._send_cmd(f"capture_image front")
+        elif c == 2:
+            return self._send_cmd(f"capture_image down")
+        else:
+            pass
     pass
 
 # class AirplaneControllerExtended(AirplaneController):
