@@ -1,10 +1,10 @@
 from .airplane_core import AirplaneCore
-from enum import Enum
+from enum import IntEnum
 
 from .relay import Relay
 
 
-class AirplaneModeEnum(Enum):
+class AirplaneModeEnum(IntEnum):
     """
     无人机airplane_mode函数设置飞行模式指令
     """
