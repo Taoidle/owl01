@@ -39,15 +39,15 @@ class AirplaneManager(object):
     def sleep(self, wait_time: int) -> None:
         self._relay.sleep(wait_time)
 
-    # def get_airplane_extended(self, id: str) -> Optional[AirplaneController]:
-    #     """
-    #     获取扩展飞机对象
-    #     这个函数获取的API在完全适配PhantasyIslandPythonRemoteControl的API基础上，添加了FH0A无人机特有功能API
-    #     :param keyName: 无人机的 keyName
-    #     :return: AirplaneController
-    #     """
-    #     return self.airplanes_table.get(id)
-    #     pass
+    def get_airplane_extended(self, id: str) -> Optional[AirplaneController]:
+        """
+        获取扩展飞机对象
+        这个函数获取的API在完全适配PhantasyIslandPythonRemoteControl的API基础上，添加了FH0A无人机特有功能API
+        :param keyName: 无人机的 keyName
+        :return: AirplaneController
+        """
+        return self.get_airplane(id)
+        pass
 
 
 
@@ -81,6 +81,13 @@ class AirplaneManager(object):
         # else:
         #     return None
 
+    def destroy(self):
+        """反注册所有无人机"""
+        for i in self.airplanes_table.values():
+            i.shutdown()
+            pass
+        self.airplanes_table = {}
+        pass
 
 def get_airplane_manager():
     """

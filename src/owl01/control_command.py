@@ -21,6 +21,9 @@ class AirplaneController(AirplaneCore):
 
     __relay = None
 
+    def use_fast_mode(self, enable=True):
+        pass
+
     def __init__(self, id: str, relay: Relay):
         # super(AirplaneCore, self).__init__()
         # super(Relay, self).__init__()
@@ -229,7 +232,7 @@ class AirplaneController(AirplaneCore):
         :param mode: AirplaneModeEnum 1,2,3,4
         :return:
         """
-        return self._send_cmd(f"airplane_mode {mode}")
+        return self._send_cmd(f"airplane_mode {mode.value}")
 
     def stop(self):
         """
@@ -251,6 +254,9 @@ class AirplaneController(AirplaneCore):
         else:
             pass
     pass
+
+    def shutdown(self):
+        pass
 
 # class AirplaneControllerExtended(AirplaneController):
 #     """
