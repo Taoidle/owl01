@@ -9,7 +9,7 @@ class AirplaneModeEnum(IntEnum):
     无人机airplane_mode函数设置飞行模式指令
     """
     CommonMode = 1
-    MapMode = 4
+    MapMode = 2
 
 
 class AirplaneController(AirplaneCore):
