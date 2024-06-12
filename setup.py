@@ -17,3 +17,11 @@ setuptools.setup(
   author_email = 'lucheng989898@protonmail.com',
   python_requires = '>=3.6',
 )
+
+# pip install mypy
+# mypy src/owl01/__init__.py
+# stubgen src/owl01/
+
+# https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html
+# pip install build
+# python -m build
